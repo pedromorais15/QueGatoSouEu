@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatos Neón</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="gradient-bg"></div>
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="neon-title">🐱 Gatos <span class="neon-text">Aleatorios</span> 🐱</h1>
+            <p class="subtitle">Descubra fotos aleatórias de gatos</p>
+        </header>
+
+        <main>
+            <!-- Mensagens Flash -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            <span class="flash-icon">⚠️</span>
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Formulário -->
+            <div class="form-container">
+                <form action="/cat" method="POST" class="neon-form">
+                    <div class="input-group">
+                        <label for="nome" class="neon-label">Seu nome:</label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            placeholder="Digite seu nome..." 
+                            required
+                            class="neon-input"
+                        >
+                    </div>
+                    <button type="submit" class="neon-button">
+                        <span>Buscar Gato 🐾</span>
+                        <div class="button-glow"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Resultado com a imagem do gato -->
+            {% if nome and url_imagem %}
+                <div class="result-container">
+                    <h2 class="result-title">Olá, <span class="neon-text">{{ nome }}</span>!</h2>
+                    <p class="result-subtitle">Aqui está seu gato especial:</p>
+                    
+                    <div class="image-wrapper">
+                        <div class="image-glow"></div>
+                        <img src="{{ url_imagem }}" alt="Gato fofo" class="cat-image">
+                        <div class="image-overlay"></div>
+                    </div>
+
+                    <button onclick="window.location.href='/'" class="neon-button secondary">
+                        <span>Buscar outro gato 🔄</span>
+                        <div class="button-glow"></div>
+                    </button>
+                </div>
+            {% endif %}
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-card">
+                    <div class="card-icon">😺</div>
+                    <h3>Gatos Aleatórios</h3>
+                    <p>Milhares de fotos de gatos esperando por você</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">💜</div>
+                    <h3>Estilo Neón</h3>
+                    <p>Uma experiência visual única e moderna</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Rápido</h3>
+                    <p>Resultados instantâneos da API</p>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+</body>
+</html>
